@@ -1,0 +1,6 @@
+sea_ql/.env
+sea_ql/.idea
+sea_ql/target
+target/
+.idea
+
