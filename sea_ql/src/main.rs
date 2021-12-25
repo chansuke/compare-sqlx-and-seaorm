@@ -17,5 +17,8 @@ async fn main() -> anyhow::Result<(), anyhow::Error> {
 
     let db = Database::connect(opt).await?;
 
+    // CRUD
+    // insert
+
     Ok(())
 }
