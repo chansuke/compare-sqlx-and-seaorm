@@ -1,5 +1,6 @@
 use sea_orm::prelude::*;
 use sea_orm::{ConnectOptions, Database};
+use sea_ql::entity_expanded;
 use std::env;
 use std::time::Duration;
 
@@ -17,8 +18,12 @@ async fn main() -> anyhow::Result<(), anyhow::Error> {
 
     let db = Database::connect(opt).await?;
 
-    // CRUD
-    // insert
+    // Insert
+    let activity = entity_expanded::activities::ActiveModel {
+        uuid: Set(String::from("activity")),
+        name: Set(String::from("ランニング 10km")),
+    };
+    activity.insert(&db).await?;
 
     Ok(())
 }
