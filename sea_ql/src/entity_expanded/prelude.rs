@@ -4,3 +4,4 @@ pub use super::activities::Entity as Activities;
 pub use super::categories::Entity as Categories;
 pub use super::durations::Entity as Durations;
 pub use super::sub_categories::Entity as SubCategories;
+pub use super::users::Entity as Users;
