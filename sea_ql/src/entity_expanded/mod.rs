@@ -3,4 +3,6 @@
 pub mod prelude;
 
 pub mod activities;
+pub mod categories;
 pub mod durations;
+pub mod sub_categories;
