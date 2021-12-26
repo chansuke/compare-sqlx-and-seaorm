@@ -9,14 +9,14 @@
 
 ```
                         Table "public.activities"
-   Column    |           Type           | Collation | Nullable | Default 
+   Column    |           Type           | Collation | Nullable | Default
 -------------+--------------------------+-----------+----------+---------
- uuid        | character varying(50)    |           | not null | 
- name        | text                     |           | not null | 
- category_id | text                     |           | not null | 
- created_at  | timestamp with time zone |           | not null | 
- updated_at  | timestamp with time zone |           | not null | 
- deleted_at  | timestamp with time zone |           | not null | 
+ uuid        | character varying(50)    |           | not null |
+ name        | text                     |           | not null |
+ category_id | text                     |           | not null |
+ created_at  | timestamp with time zone |           | not null |
+ updated_at  | timestamp with time zone |           | not null |
+ deleted_at  | timestamp with time zone |           | not null |
 Indexes:
     "activities_pkey" PRIMARY KEY, btree (uuid)
 ```
@@ -34,7 +34,12 @@ Indexes:
 - `--expanded-format`
   - https://www.sea-ql.org/SeaORM/docs/generate-entity/expanded-entity-structure/
 
-- 新しくマイグレーションを追加しentityを生成すると ``
+- 新しくマイグレーションを追加しentityを生成すると指定したディレクトリに生成する
+
+- chrono いる
+
+- migration でalter nameした後テーブルが変更されるも、それが反映されない事がある?
+
 
 ## コマンド
 ### マイグレーションファイル追加
@@ -44,4 +49,4 @@ Indexes:
 `$ sqlx migrate run`
 
 ### entity生成
-`$ sea-orm-cli generate entity -u $DATABASE_URL -o sea_ql/src/entity_expanded/ --expanded-format`
+`$ sea-orm-cli generate entity -u $DATABASE_URL -o sea_ql/src/entity/ --expanded-format`

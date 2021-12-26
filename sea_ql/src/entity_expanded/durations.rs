@@ -58,7 +58,7 @@ impl ColumnTrait for Column {
         match self {
             Self::Uuid => ColumnType::String(Some(50u32)).def(),
             Self::ActivityUuid => ColumnType::String(Some(50u32)).def(),
-            Self::CategoryUuid => ColumnType::Text.def().null(),
+            Self::CategoryUuid => ColumnType::String(Some(50u32)).def().null(),
             Self::StartDate => ColumnType::TimestampWithTimeZone.def(),
             Self::EndDate => ColumnType::TimestampWithTimeZone.def().null(),
             Self::CreatedAt => ColumnType::TimestampWithTimeZone.def(),

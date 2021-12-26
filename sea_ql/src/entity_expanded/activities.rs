@@ -15,7 +15,7 @@ impl EntityName for Entity {
 pub struct Model {
     pub uuid: String,
     pub name: String,
-    pub category_id: String,
+    pub category_uuid: String,
     pub created_at: DateTimeWithTimeZone,
     pub updated_at: DateTimeWithTimeZone,
     pub deleted_at: DateTimeWithTimeZone,
@@ -25,7 +25,7 @@ pub struct Model {
 pub enum Column {
     Uuid,
     Name,
-    CategoryId,
+    CategoryUuid,
     CreatedAt,
     UpdatedAt,
     DeletedAt,
@@ -52,7 +52,7 @@ impl ColumnTrait for Column {
         match self {
             Self::Uuid => ColumnType::String(Some(50u32)).def(),
             Self::Name => ColumnType::Text.def(),
-            Self::CategoryId => ColumnType::Text.def(),
+            Self::CategoryUuid => ColumnType::String(Some(50u32)).def(),
             Self::CreatedAt => ColumnType::TimestampWithTimeZone.def(),
             Self::UpdatedAt => ColumnType::TimestampWithTimeZone.def(),
             Self::DeletedAt => ColumnType::TimestampWithTimeZone.def(),

@@ -7,17 +7,15 @@ pub struct Entity;
 
 impl EntityName for Entity {
     fn table_name(&self) -> &str {
-        "durations"
+        "categories"
     }
 }
 
 #[derive(Clone, Debug, PartialEq, DeriveModel, DeriveActiveModel)]
 pub struct Model {
     pub uuid: String,
-    pub activity_uuid: String,
-    pub category_uuid: Option<String>,
-    pub start_date: DateTimeWithTimeZone,
-    pub end_date: Option<DateTimeWithTimeZone>,
+    pub name: String,
+    pub sub_category_uuid: Option<String>,
     pub created_at: DateTimeWithTimeZone,
     pub updated_at: Option<DateTimeWithTimeZone>,
     pub deleted_at: Option<DateTimeWithTimeZone>,
@@ -26,10 +24,8 @@ pub struct Model {
 #[derive(Copy, Clone, Debug, EnumIter, DeriveColumn)]
 pub enum Column {
     Uuid,
-    ActivityUuid,
-    CategoryUuid,
-    StartDate,
-    EndDate,
+    Name,
+    SubCategoryUuid,
     CreatedAt,
     UpdatedAt,
     DeletedAt,
@@ -49,7 +45,7 @@ impl PrimaryKeyTrait for PrimaryKey {
 
 #[derive(Copy, Clone, Debug, EnumIter)]
 pub enum Relation {
-    SelfRef,
+    SubCategories,
 }
 
 impl ColumnTrait for Column {
@@ -57,10 +53,8 @@ impl ColumnTrait for Column {
     fn def(&self) -> ColumnDef {
         match self {
             Self::Uuid => ColumnType::String(Some(50u32)).def(),
-            Self::ActivityUuid => ColumnType::String(Some(50u32)).def(),
-            Self::CategoryUuid => ColumnType::String(Some(50u32)).def().null(),
-            Self::StartDate => ColumnType::TimestampWithTimeZone.def(),
-            Self::EndDate => ColumnType::TimestampWithTimeZone.def().null(),
+            Self::Name => ColumnType::Text.def(),
+            Self::SubCategoryUuid => ColumnType::Text.def().null(),
             Self::CreatedAt => ColumnType::TimestampWithTimeZone.def(),
             Self::UpdatedAt => ColumnType::TimestampWithTimeZone.def().null(),
             Self::DeletedAt => ColumnType::TimestampWithTimeZone.def().null(),
@@ -71,11 +65,17 @@ impl ColumnTrait for Column {
 impl RelationTrait for Relation {
     fn def(&self) -> RelationDef {
         match self {
-            Self::SelfRef => Entity::belongs_to(Entity)
-                .from(Column::ActivityUuid)
-                .to(Column::Uuid)
+            Self::SubCategories => Entity::belongs_to(super::sub_categories::Entity)
+                .from(Column::SubCategoryUuid)
+                .to(super::sub_categories::Column::Uuid)
                 .into(),
         }
+    }
+}
+
+impl Related<super::sub_categories::Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::SubCategories.def()
     }
 }
 
