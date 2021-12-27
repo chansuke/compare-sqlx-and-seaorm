@@ -22,3 +22,4 @@ tracing = "0.1.29"
 tracing-subscriber = { version = "0.3.2", features = ["time", "local-time", "env-filter"] }
 chrono = "*"
 uuid = "0.8.2"
+async-std = "1.10.0"
